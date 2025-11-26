@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Login Signup Split UI</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* MAIN LAYOUT */
+body {
+    background: #f1f5f9;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 900px;
+    height: 550px;
+    background: #ffffff;
+    display: flex;
+    border-radius: 18px;
+    box-shadow: 0px 6px 25px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* LEFT COMPANY INFO PANEL */
+.left-panel {
+    width: 45%;
+    background: linear-gradient(135deg, #4a90e2, #3577c9);
+    color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.left-panel h1 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.left-panel p {
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+/* RIGHT FORM PANEL */
+.right-panel {
+    width: 55%;
+    padding: 40px 50px;
+}
+
+/* TAB SWITCHING */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.tab {
+    padding: 12px 25px;
+    margin: 0 5px;
+    border-radius: 30px;
+    cursor: pointer;
+    background: #e5e7eb;
+    color: #333;
+    transition: 0.3s;
+}
+
+.tab.active {
+    background: #4a90e2;
+    color: white;
+}
+
+/* FORM ELEMENTS */
+.input-group {
+    margin-bottom: 18px;
+    position: relative;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 13px 45px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    outline: none;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.input-group input:focus {
+    border-color: #4a90e2;
+}
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    left: 13px;
+    transform: translateY(-50%);
+    color: #6b7280;
+    font-size: 18px;
+}
+
+.btn {
+    width: 100%;
+    padding: 13px;
+    background: #4a90e2;
+    border: none;
+    color: white;
+    border-radius: 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* SOCIAL LOGIN */
+.social-login {
+    margin-top: 20px;
+}
+
+.social-btn {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    background: #fff;
+    margin-bottom: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+}
+
+.social-btn img {
+    width: 22px;
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        width: 95%;
+        height: auto;
+    }
+    .left-panel {
+        width: 100%;
+        padding: 30px;
+    }
+    .right-panel {
+        width: 100%;
+        padding: 30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LEFT COMPANY PANEL -->
+    <div class="left-panel">
+        <h1>Acme Cloud</h1>
+        <p>
+            Empowering businesses with world-class analytics, real-time insights,  
+            and powerful automation tools.  
+            <br><br>
+            Your journey to smart digital transformation starts here.
+        </p>
+    </div>
+
+    <!-- RIGHT LOGIN / SIGNUP PANEL -->
+    <div class="right-panel">
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('login')">Login</div>
+            <div class="tab" onclick="switchTab('signup')">Signup</div>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div id="login-form">
+
+            <div class="input-group">
+                <i class="fa fa-envelope"></i>
+                <input type="email" placeholder="Email">
+            </div>
+
+            <div class="input-group">
+                <i class="fa fa-lock"></i>
+                <input type="password" placeholder="Password">
+            </div>
+
+            <button class="btn">Login</button>
+
+            <div class="social-login">
+                <button class="social-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/IOS_Google_icon.png">
+                    Continue with Google
+                </button>
+
+                <button class="social-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png">
+                    Continue with Facebook
+                </button>
+            </div>
+        </div>
+
+        <!-- SIGNUP FORM -->
+        <div id="signup-form" style="display:none;">
+
+            <div class="input-group">
+                <i class="fa fa-user"></i>
+                <input type="text" placeholder="Full Name">
+            </div>
+
+            <div class="input-group">
+                <i class="fa fa-envelope"></i>
+                <input type="email" placeholder="Email">
+            </div>
+
+            <div class="input-group">
+                <i class="fa fa-lock"></i>
+                <input type="password" placeholder="Password">
+            </div>
+
+            <button class="btn">Create Account</button>
+
+            <div class="social-login">
+                <button class="social-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/IOS_Google_icon.png">
+                    Sign up with Google
+                </button>
+
+                <button class="social-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png">
+                    Sign up with Facebook
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function switchTab(tab) {
+    document.getElementById("login-form").style.display = tab === "login" ? "block" : "none";
+    document.getElementById("signup-form").style.display = tab === "signup" ? "block" : "none";
+
+    let tabs = document.querySelectorAll(".tab");
+    tabs.forEach(t => t.classList.remove("active"));
+
+    if (tab === "login") {
+        tabs[0].classList.add("active");
+    } else {
+        tabs[1].classList.add("active");
+    }
+}
+</script>
+
+</body>
+</html>
