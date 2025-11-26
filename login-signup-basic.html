@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Modern Login & Signup UI</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--bg);
+        transition: 0.4s;
+    }
+
+    :root {
+        --bg: #f4f4f4;
+        --card: #fff;
+        --text: #333;
+        --accent: #4a90e2;
+        --input-bg: #f0f0f0;
+    }
+
+    body.dark {
+        --bg: #121212;
+        --card: #1e1e1e;
+        --text: #e6e6e6;
+        --input-bg: #2a2a2a;
+    }
+
+    .container {
+        width: 380px;
+        padding: 30px;
+        background: var(--card);
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        transition: 0.3s;
+        position: relative;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 10px auto;
+        display: block;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: var(--text);
+    }
+
+    .input-group {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 12px 40px 12px 45px;
+        border-radius: 10px;
+        outline: none;
+        background: var(--input-bg);
+        border: 2px solid transparent;
+        transition: .3s;
+        color: var(--text);
+    }
+
+    .input-group input:focus {
+        border-color: var(--accent);
+    }
+
+    .input-group svg {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        width: 20px;
+        height: 20px;
+        fill: var(--accent);
+    }
+
+    .input-group label {
+        position: absolute;
+        top: 50%;
+        left: 45px;
+        transform: translateY(-50%);
+        color: #888;
+        pointer-events: none;
+        transition: .3s;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+        top: -8px;
+        font-size: 12px;
+        background: var(--card);
+        padding: 0 4px;
+        color: var(--accent);
+    }
+
+    .show-hide {
+        position: absolute;
+        right: 10px;
+        top: 12px;
+        cursor: pointer;
+        font-size: 13px;
+        color: var(--accent);
+    }
+
+    .error {
+        color: red;
+        font-size: 13px;
+        margin-bottom: 10px;
+        display: none;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        background: var(--accent);
+        border: none;
+        color: white;
+        cursor: pointer;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+    .social-login {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .social-login button {
+        width: 48%;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 8px;
+        background: var(--input-bg);
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .social-login svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .switch-text {
+        margin-top: 20px;
+        text-align: center;
+        color: var(--text);
+    }
+
+    .switch-text span {
+        color: var(--accent);
+        cursor: pointer;
+    }
+
+    .theme-toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+        padding: 6px 12px;
+        background: var(--accent);
+        color: white;
+        border-radius: 20px;
+        font-size: 13px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="theme-toggle" onclick="toggleTheme()">Theme</div>
+
+<div class="container">
+
+    <!-- Logo -->
+    <svg class="logo" viewBox="0 0 24 24">
+        <path fill="#4a90e2" d="M12 2L2 7l10 5 10-5-10-5zm0 8l-10-5v10l10 5 10-5V5l-10 5zm0 2l-10-5v10l10 5 10-5V7l-10 5z"/>
+    </svg>
+
+    <h2 id="form-title">Login</h2>
+
+    <div class="error" id="error-box"></div>
+
+    <!-- LOGIN FORM -->
+    <div id="login-form">
+
+        <div class="input-group">
+            <!-- Email Icon -->
+            <svg><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 
+            1.1.9 2 2 2h16c1.1 0 2-.9 
+            2-2V6c0-1.1-.9-2-2-2zm0 
+            4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+
+            <input type="email" id="login-email" placeholder=" " />
+            <label>Email</label>
+        </div>
+
+        <div class="input-group">
+            <!-- Password Icon -->
+            <svg><path d="M12 17a2 2 0 100-4 2 
+            2 0 000 4zm6-6h-1V9a5 5 0 
+            00-10 0v2H6c-1.1 0-2 .9-2 
+            2v7c0 1.1.9 2 2 
+            2h12c1.1 0 2-.9 
+            2-2v-7c0-1.1-.9-2-2-2zm-3 
+            0H9V9a3 3 0 016 0v2z"/></svg>
+
+            <input type="password" id="login-pass" placeholder=" " />
+            <label>Password</label>
+            <span class="show-hide" onclick="togglePass('login-pass')">Show</span>
+        </div>
+
+        <button class="btn" onclick="login()">Login</button>
+
+        <div class="social-login">
+            <button>
+                <!-- Google Icon -->
+                <svg viewBox="0 0 24 24">
+                    <path fill="#EA4335" d="M12 10.2v3.6h5.1c-.2 
+                    1.2-.8 2.3-1.8 
+                    3.1l2.8 2.2c1.6-1.5 2.5-3.7 
+                    2.5-6.3 0-.6-.1-1.2-.2-1.8H12z"/>
+                    <path fill="#34A853" d="M6.6 
+                    14.3l-.9.7-2.3 1.8C5 
+                    19.8 8.3 22 12 22c2.4 
+                    0 4.6-.8 6.1-2.2l-3-2.3c-.8.5-1.9 
+                    .8-3.1 .8-2.4 0-4.5-1.6-5.3-4z"/>
+                    <path fill="#4A90E2" d="M4.2 
+                    10.1c-.2.6-.3 1.3-.3 1.9 0 
+                    .7.1 1.3.3 1.9l2.4-1.8c-.2-.5-.3-1-.3-1.6 
+                    0-.5.1-1.1.3-1.6L4.2 10z"/>
+                    <path fill="#FBBC05" d="M12 
+                    6c1.3 0 2.4.4 3.3 1.3l2.5-2.5C16.6 
+                    2.8 14.4 2 12 2 8.3 2 5 
+                    4.2 3.4 7.1l2.3 1.8C7.5 
+                    7.6 9.6 6 12 6z"/>
+                </svg>
+                Google
+            </button>
+
+            <button>
+                <!-- Facebook Icon -->
+                <svg viewBox="0 0 24 24" fill="#1877F2">
+                    <path d="M22 12a10 10 0 10-11.5 
+                    9.9v-7H8v-3h2.5V9.5c0-2.5 
+                    1.5-3.9 3.7-3.9 1.1 
+                    0 2.2.2 2.2.2v2.5h-1.2c-1.2 
+                    0-1.6.8-1.6 
+                    1.5V12H18l-.5 3h-2.9v7A10 
+                    10 0 0022 12z"/>
+                </svg>
+                Facebook
+            </button>
+        </div>
+
+        <p class="switch-text">
+            Don’t have an account? <span onclick="switchForm()">Signup</span>
+        </p>
+    </div>
+
+
+    <!-- SIGNUP FORM -->
+    <div id="signup-form" style="display:none;">
+
+        <div class="input-group">
+            <!-- User Icon -->
+            <svg><path d="M12 12c2.7 0 
+            4.9-2.2 4.9-4.9S14.7 
+            2.2 12 2.2 7.1 4.4 7.1 
+            7.1 9.3 12 12 12zm0 
+            2.4c-3.2 0-9.6 1.6-9.6 
+            4.9V22h19.2v-2.7c0-3.3-6.4-4.9-9.6-4.9z"/></svg>
+
+            <input type="text" id="signup-name" placeholder=" " />
+            <label>Full Name</label>
+        </div>
+
+        <div class="input-group">
+            <!-- Email Icon -->
+            <svg><path d="M20 4H4c-1.1 0-2 .9-2 
+            2v12c0 1.1.9 2 2 
+            2h16c1.1 0 2-.9 
+            2-2V6c0-1.1-.9-2-2-2zm0 
+            4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+
+            <input type="email" id="signup-email" placeholder=" " />
+            <label>Email</label>
+        </div>
+
+        <div class="input-group">
+            <!-- Password Icon -->
+            <svg><path d="M12 17a2 2 0 100-4 2 
+            2 0 000 4zm6-6h-1V9a5 5 0 
+            00-10 0v2H6c-1.1 0-2 .9-2 
+            2v7c0 1.1.9 2 2 
+            2h12c1.1 0 2-.9 
+            2-2v-7c0-1.1-.9-2-2-2zm-3 
+            0H9V9a3 3 0 016 0v2z"/></svg>
+
+            <input type="password" id="signup-pass" placeholder=" " />
+            <label>Password</label>
+            <span class="show-hide" onclick="togglePass('signup-pass')">Show</span>
+        </div>
+
+        <div class="input-group">
+            <!-- Password Icon -->
+            <svg><path d="M12 17a2 2 0 100-4 2 
+            2 0 000 4zm6-6h-1V9a5 5 0 
+            00-10 0v2H6c-1.1 0-2 .9-2 
+            2v7c0 1.1.9 2 2 
+            2h12c1.1 0 2-.9 
+            2-2v-7c0-1.1-.9-2-2-2zm-3 
+            0H9V9a3 3 0 016 0v2z"/></svg>
+
+            <input type="password" id="signup-confirm" placeholder=" " />
+            <label>Confirm Password</label>
+            <span class="show-hide" onclick="togglePass('signup-confirm')">Show</span>
+        </div>
+
+        <button class="btn" onclick="signup()">Signup</button>
+
+        <p class="switch-text">
+            Already have an account? <span onclick="switchForm()">Login</span>
+        </p>
+    </div>
+
+</div>
+
+<script>
+    function switchForm() {
+        let login = document.getElementById("login-form");
+        let signup = document.getElementById("signup-form");
+        let title = document.getElementById("form-title");
+
+        if (login.style.display === "none") {
+            login.style.display = "block";
+            signup.style.display = "none";
+            title.innerText = "Login";
+        } else {
+            login.style.display = "none";
+            signup.style.display = "block";
+            title.innerText = "Signup";
+        }
+        document.getElementById("error-box").style.display = "none";
+    }
+
+    function togglePass(id) {
+        let input = document.getElementById(id);
+        input.type = input.type === "password" ? "text" : "password";
+    }
+
+    function showError(msg) {
+        let box = document.getElementById("error-box");
+        box.innerText = msg;
+        box.style.display = "block";
+    }
+
+    function login() {
+        let email = document.getElementById("login-email").value;
+        let pass = document.getElementById("login-pass").value;
+
+        if (!email || !pass) {
+            showError("Please enter email and password.");
+            return;
+        }
+
+        showError("Login successful! (demo)");
+    }
+
+    function signup() {
+        let name = document.getElementById("signup-name").value;
+        let email = document.getElementById("signup-email").value;
+        let pass = document.getElementById("signup-pass").value;
+        let confirm = document.getElementById("signup-confirm").value;
+
+        if (!name || !email || !pass || !confirm) {
+            showError("All fields are required.");
+            return;
+        }
+
+        if (pass !== confirm) {
+            showError("Passwords do not match.");
+            return;
+        }
+
+        showError("Signup successful! (demo)");
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle("dark");
+    }
+</script>
+
+</body>
+</html>
